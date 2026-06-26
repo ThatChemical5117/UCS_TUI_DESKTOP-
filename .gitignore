@@ -2,5 +2,8 @@ Application/.obj
 Application/.dep
 bin
 compile_commands.json
+Products.csv
+Orders.csv
+.env
 
 
