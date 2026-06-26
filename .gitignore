@@ -1,0 +1,6 @@
+Application/.obj
+Application/.dep
+bin/**
+compile_commands.json
+
+
