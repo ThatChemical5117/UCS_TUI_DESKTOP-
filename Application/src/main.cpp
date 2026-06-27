@@ -17,30 +17,33 @@ void DisplayMenu()
 	std::cout << "----------------------" << std::endl;
 }
 
+// Another class consumes this interface - That class shouldn't care what the implementation details
+// are of the actual reading and writing just that it can
+class ReadWriteInterface
+{
+private:
+	std::string m_src;
+protected:
+	const std::string_view getSrc() { return m_src; }
+	void setSrc(const std::string& src) { m_src = src;};
 
+public:
+	ReadWriteInterface(const std::string& src)	
+		: m_src { src }
+	{}
+
+	// Pure virtual function - Consumer must implement
+	virtual void Read() = 0;
+	virtual void Write() = 0;
+};
+
+
+// Repository class wants to consume the DataReadWriteInterface
 class Repository
 {
-private:
 public:
-protected:
 };
 
-class ProductRepo
-{
-private:
-	static ProductRepo* m_repo;
-	ProductRepo();
-
-	std::unordered_map<int, Product> m_productHashmap;
-public:
-	static ProductRepo* getInstance();
-
-	const Product& getProducts();
-	void addProducts();
-};
-
-class OrderRepo
-{};
 
 void ListProducts(const std::vector<Product>& products)
 {
