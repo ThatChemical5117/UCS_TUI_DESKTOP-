@@ -33,7 +33,7 @@ DEP = $(OBJ:$(OBJDIR)/%.o=$(DEPDIR)/%.d)
 
 # Compiler and Compiler options
 CXX = g++
-CXXFLAGS += -Wall -I./include 
+CXXFLAGS += -Wall -I./include -std=c++17
 LDFLAGS = 
 
 # pre-compiled headers options

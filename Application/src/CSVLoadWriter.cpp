@@ -1,13 +1,8 @@
-#include <CSVLoader.h>
-#include <Product.h>
-#include <Order.h>
-
-#include <iostream>
-#include <fstream>
+#include <CSVLoadWriter.h>
 #include <sstream>
 #include <filesystem>
 
-std::vector<std::string> CSVLoader::splitWithDelimiter(const std::string& string, const char delimiter)
+std::vector<std::string> splitWithDelimiter(const std::string& string, const char delimiter)
 {
 	std::vector<std::string> splitLine;
 	std::stringstream stream(string);
@@ -27,9 +22,10 @@ std::vector<std::string> CSVLoader::splitWithDelimiter(const std::string& string
 	}
 
 	return splitLine;
-}
 
-bool CSVLoader::validateFile(const std::string_view filename)
+};
+
+bool validateFile(std::string_view filename)
 {
 	std::filesystem::path path = std::filesystem::current_path();
 
@@ -54,25 +50,5 @@ bool CSVLoader::validateFile(const std::string_view filename)
 	};
 
 	return true;
-}
 
-
-void CSVLoader::load(const std::string& filename, std::function<void (std::vector<std::string>&)> t_parseLine)
-{
-
-	if (!validateFile(filename))
-		std::cout << "Invalid file" << std::endl;
-
-	std::ifstream inputFile(filename);
-
-	if(!inputFile.is_open())
-		std::cout << "Failed to open file: " << filename << std::endl;
-
-
-	std::string line;
-	while(getline(inputFile, line))
-	{	
-		std::vector<std::string> arguments = splitWithDelimiter(line, ',');
-		t_parseLine(arguments);
-	}
 }
