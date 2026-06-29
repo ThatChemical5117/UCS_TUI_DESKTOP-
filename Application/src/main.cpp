@@ -1,104 +1,25 @@
 #include <iostream>
-#include <vector>
-#include <string>
 
-#include <Product.h>
-#include <Order.h> 
-#include <CSVLoader.h>
-
-void DisplayMenu()
-{
-	std::cout << "----------------------" << std::endl;
-	std::cout << "- 1) List Product - " << std::endl;
-	std::cout << "- 2) List Orders - " << std::endl;
-	std::cout << "- 3) Change Product values - " << std::endl;
-	std::cout << "- 4) Add new Product - " << std::endl;
-	std::cout << "- 5) Exit -" << std::endl;
-	std::cout << "----------------------" << std::endl;
-}
-
-// Another class consumes this interface - That class shouldn't care what the implementation details
-// are of the actual reading and writing just that it can
-class ReadWriteInterface
-{
-private:
-	std::string m_src;
-protected:
-	const std::string_view getSrc() { return m_src; }
-	void setSrc(const std::string& src) { m_src = src;};
-
-public:
-	ReadWriteInterface(const std::string& src)	
-		: m_src { src }
-	{}
-
-	// Pure virtual function - Consumer must implement
-	virtual void Read() = 0;
-	virtual void Write() = 0;
-};
-
-
-// Repository class wants to consume the DataReadWriteInterface
-class Repository
-{
-public:
-};
-
-
-void ListProducts(const std::vector<Product>& products)
-{
-	// Repository.get()
-	for (const Product& product: products)
-	{
-		std::cout << product << std::endl;
-	}
-}
-
-void ListOrders(const std::vector<Order>& orders)
-{
-	for (const Order& order: orders)
-	{
-		std::cout << order << std::endl;
-	};
-}
+#include <ProductRepo.h>
+#include <Utils.h>
 
 int main()
 {
 	int userInput;
-	CSVLoader loader;
-
-	std::vector<Product> products;
-	std::vector<Order> orders;
-
-	loader.load("Products.csv", [&products](std::vector<std::string>& t_line) -> void
-	{
-		if (t_line.size() < 6)
-			return;
-
-		products.emplace_back(std::stoi(t_line[0]), t_line[1], t_line[2],std::stod(t_line[3]), std::stoi(t_line[4]), stringToProductCatagory(t_line[5]));
-
-	});
-
-	loader.load("Orders.csv", [&orders](std::vector<std::string>& line) -> void
-	{
-		if (line.size() < 5)
-			return;
-
-		orders.emplace_back(std::stoi(line[0]), std::stoi(line[1]), std::stoi(line[2]), line[3], line[4], line[5], stringToOrderStatus(line[6]));
-	});
+	ProductRepo repository;
 
 	do
 	{
-		DisplayMenu();
+		Ultilities::DisplayMenu();
 		std::cin >> userInput;
 
 		switch (userInput)
 		{
 			case 1:
-				ListProducts(products);
+				Ultilities::ListProducts(repository.Get());
 				break;
 			case 2:
-				ListOrders(orders);
+				//ListOrders(orders);
 				break;
 			case 3:
 				std::cout << "Not implemented\n";
