@@ -47,6 +47,7 @@ bool validateFile(std::string_view filename)
 	{
 		std::cout << "Invalid file format: " << path.extension()  << std::endl;	
 		std::cout << "Expected .csv" << std::endl;
+		return false;
 	};
 
 	return true;

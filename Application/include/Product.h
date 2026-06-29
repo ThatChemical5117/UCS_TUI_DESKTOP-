@@ -26,6 +26,7 @@ struct Product
 	ProductCatagory category;
 
 	Product(int t_id, std::string t_name, std::string t_description, double t_price, int t_stockCount, ProductCatagory t_category);
+	Product();
 };
 
 std::ostream& operator<<(std::ostream& stream, const Product& product);
