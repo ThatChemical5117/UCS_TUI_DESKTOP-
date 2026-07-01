@@ -2,10 +2,13 @@
 
 const static std::string productCategoryStrings [static_cast<int>(ProductCatagory::CATEGORY_MAX)] = { "entry", "intermediate","advanced", "ultimate" };
 
-Product::Product(int t_id, std::string t_name, std::string t_description, double t_price, int t_stockCount, ProductCatagory t_category)
+Product::Product(int t_id, std::string t_name, std::string t_description, std::string t_price, int t_stockCount, ProductCatagory t_category)
 	: id { t_id }, name { t_name }, description { t_description }, price { t_price }, stockCount { t_stockCount }, category { t_category }
 {
 }
+
+Product::Product()
+{};
 
 std::string_view ProductCatagoryToString(ProductCatagory cat)
 {

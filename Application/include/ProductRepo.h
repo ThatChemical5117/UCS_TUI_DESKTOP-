@@ -22,6 +22,8 @@ public:
 	// Customer Read-Write interface
 	ProductRepo(ReadWriteInterface<Product>* interface);
 
+
+	void Add(Product&& item) override final;
 	std::unordered_map<int, Product>& Get() override final;
 
 	~ProductRepo();

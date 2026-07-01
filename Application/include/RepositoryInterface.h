@@ -1,16 +1,14 @@
 #pragma once
 #include <unordered_map>
 #include <iostream>
-#include <optional>
 
 #include <ReadWriteInterface.h>
 
 template <typename T>
 class RepositoryInterface
 {
-private:
-	ReadWriteInterface<T>* m_dataSourceInterface = nullptr;
 protected:
+	ReadWriteInterface<T>* m_dataSourceInterface = nullptr;
 	std::unordered_map<int, T> m_data;
 public:
 	RepositoryInterface(ReadWriteInterface<T>* interface)
@@ -24,7 +22,7 @@ public:
 
 
 	// Interface member functions
-	//virtual void Add(T&& item) = 0;
+	virtual void Add(T&& item) = 0;
 	//virtual std::optional<T> GetOne(int id) = 0;
 	//virtual std::optional<T> Remove(int id) = 0;
 	//virtual std::optional<T> Update(int id, T&& item) = 0;

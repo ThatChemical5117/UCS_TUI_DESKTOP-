@@ -19,6 +19,7 @@ private:
 	std::string m_filename;
 	std::function<std::optional<std::pair<int, T>> (std::vector<std::string>&)> m_lineParser;
 	std::function<std::string (const T&)> m_itemParser;
+	bool isValid = false;
 public:
 
 	CSVLoadWriter(const std::string& filename, 
@@ -27,17 +28,19 @@ public:
 		: m_filename { filename },
 		  m_lineParser { lineParser },
 		  m_itemParser { itemParser }
-	{};
+	{
+		if (!validateFile(m_filename))
+			std::cout << "Invalid file: (" << m_filename << ")" << std::endl;
+		else
+			isValid = true;
+	};
 
 	std::unordered_map<int, T> Read() 
 	{
 		std::unordered_map<int, T> storage;
 
-		if (!validateFile(m_filename))
-		{
-			std::cout << "Invalid file: (" << m_filename << ")" << std::endl;
+		if (!isValid)
 			return storage;
-		}
 
 		std::ifstream inputFile(m_filename);
 
@@ -67,6 +70,24 @@ public:
 
 	void Write(std::unordered_map<int, T>& input)
 	{
-		std::cout << "Do nothing" << std::endl;
+		if (!isValid) 
+		{
+			std::cout << "No valid file" << std::endl;
+			return;
+		}
+
+		// Open the file -- erase it's contents
+		std::ofstream outputFile(m_filename, std::ofstream::trunc);
+
+		if (!outputFile.is_open()) 
+		{
+			std::cout << "Cannot open file" << std::endl;
+			return;
+		}
+	
+		for (const auto& [key, item]: input)
+		{
+			outputFile << m_itemParser(item) << "\n";
+		};
 	};
 };
