@@ -1,8 +1,12 @@
+#include "Model/Order.h"
+#include "Model/Product.h"
 #include <Utils.h>
+#include <limits>
+#include <string>
 
 
 // Display
-void Ultilities::DisplayMenu()
+void Utilities::DisplayMenu()
 {
 	std::cout << "----------------------" << std::endl;
 	std::cout << "- 1) List Product - " << std::endl;
@@ -14,7 +18,7 @@ void Ultilities::DisplayMenu()
 };
 
 // List products
-void Ultilities::ListProducts(const std::unordered_map<int, Product>& products)
+void Utilities::ListProducts(const std::unordered_map<int, Product>& products)
 {
 	for (const auto& [key, product]: products)
 	{
@@ -23,11 +27,52 @@ void Ultilities::ListProducts(const std::unordered_map<int, Product>& products)
 };
 
 // List orders
-void Ultilities::ListOrders(const std::unordered_map<int, Order>& orders)
+void Utilities::ListOrders(const std::unordered_map<int, Order>& orders)
 {
 	for (const auto& [key, order]: orders)
 	{
 		std::cout << order << std::endl;
 	}
+};
+
+
+template <>
+int Utilities::getInput()
+{
+	int userInt;
+	std::cin >> userInt;
+	 
+	while(!std::cin)
+	{
+		std::cout << "Invalid input\nPlease enter an integer value\n";
+
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	return userInt;
+};
+
+template<>
+std::string Utilities::getInput()
+{
+	std::string userInput;
+	getline(std::cin, userInput);
+
+	return userInput;
+};
+
+
+template<>
+ProductCatagory Utilities::getInput()
+{
+	return stringToProductCatagory(getInput<std::string>());
+};
+
+template<>
+OrderStatus Utilities::getInput()
+{
+	return stringToOrderStatus(getInput<std::string>());
 };
 
