@@ -6,12 +6,12 @@
 // Factory template for different objects that are not related
 // But still allows for Overriding sub-classes to be used through polymorphism
 template <typename T>
-class TemplateFactory
+class FactoryTemplate
 {
 public:
-	TemplateFactory() = default;
+	FactoryTemplate() = default;
 	virtual T MakeItem(const std::vector<std::string>&) = 0;
 	virtual std::string MakeString(const T&) = 0;
 
-	virtual ~TemplateFactory() = default;
+	virtual ~FactoryTemplate() = default;
 };

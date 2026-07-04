@@ -8,7 +8,6 @@
 // for the Repository Interface and Read-Write interface
 class ProductRepo: public RepositoryInterface<Product>
 {
-private:
 public:
 	// Default
 	ProductRepo();

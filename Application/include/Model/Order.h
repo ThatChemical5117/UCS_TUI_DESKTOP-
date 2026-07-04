@@ -31,6 +31,7 @@ struct Order {
 
 	// Constructor
 	Order(int t_id, int t_productId, int t_stockNumber, std::string t_name, std::string t_email, std::string t_address, OrderStatus t_status);
+	Order();
 };
 
 // overload << to print

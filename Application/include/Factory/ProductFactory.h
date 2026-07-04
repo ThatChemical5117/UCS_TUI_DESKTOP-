@@ -1,10 +1,9 @@
 #pragma once
-
-#include <Interface/TemplateFactory.h> // Use the template interface class
+#include <Interface/FactoryTemplate.h> // Use the template interface class
 #include <Model/Product.h>
 
 // concrete class implements a Product template factory
-class ProductFactory: public TemplateFactory<Product>
+class ProductFactory: public FactoryTemplate<Product>
 {
 private:
 	static ProductFactory* m_instance; // singleton instance
@@ -24,6 +23,3 @@ public:
 	// default destructor
 	~ProductFactory() = default;
 };
-
-
-

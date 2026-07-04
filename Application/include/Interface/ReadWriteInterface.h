@@ -1,16 +1,16 @@
 #pragma once
 #include<unordered_map>
 
-#include <Interface/TemplateFactory.h>
+#include <Interface/FactoryTemplate.h>
 
 // Interface for an object that can Read and Write to a source
 template<typename T>
 class ReadWriteInterface
 {
 protected:
-	TemplateFactory<T>* m_factory = nullptr;
+	FactoryTemplate<T>* m_factory = nullptr;
 public:
-	ReadWriteInterface(TemplateFactory<T>* factory) 
+	ReadWriteInterface(FactoryTemplate<T>* factory) 
 		: m_factory { factory }
 	{};
 

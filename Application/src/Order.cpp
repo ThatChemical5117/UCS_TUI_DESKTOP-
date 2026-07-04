@@ -22,7 +22,6 @@ OrderStatus stringToOrderStatus(std::string_view str)
 	for (unsigned int i = 0; i < static_cast<int>(OrderStatus::STATUS_MAX); i++)
 	{
 
-		std::cout << str << std::endl;
 		if (str.compare(orderStatusStrings[i]) == 0)
 		{
 			return static_cast<OrderStatus>(i);
@@ -37,6 +36,10 @@ OrderStatus stringToOrderStatus(std::string_view str)
 Order::Order(int t_id, int t_productId, int t_stockNumber, std::string t_name, std::string t_email, std::string t_address, OrderStatus t_status)
 	: id { t_id }, productId { t_productId }, stockNumber { t_stockNumber }, name { t_name }, email { t_email }, address { t_address }, status { t_status }
 {}
+
+Order::Order()
+	: id{ -1 }, productId { -1 }, stockNumber { -1 }, name { "" }, email { "" }, address { "" }, status { OrderStatus::STATUS_MAX }
+{};
 
 // Print an order status
 std::ostream& operator<<(std::ostream& stream, OrderStatus status)

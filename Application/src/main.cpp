@@ -1,57 +1,17 @@
 #include <iostream>
-#include <limits>
 
 // Required product repository
 #include <Repository/ProductRepo.h>
+#include <Repository/OrderRepo.h>
 #include <Factory/ProductFactory.h>
 #include <Utils.h>
-
-
-// Input methods
-template <typename T>
-T getInput() = delete;
-
-template <>
-int getInput()
-{
-	int userInt;
-	std::cin >> userInt;
-
-	while(!std::cin)
-	{
-		std::cout << "Invalid input\nPlease enter an integer value\n";
-		
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	}
-
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	return userInt;
-};
-
-template <>
-std::string getInput()
-{
-	std::string userInput;
-
-	getline(std::cin, userInput);
-
-	return userInput;
-};
-
-template<>
-ProductCatagory getInput()
-{
-	std::string userInput;
-	getline(std::cin, userInput);
-
-	return stringToProductCatagory(userInput);
-};
-
 
 // Temp function for testing
 void AddProduct(ProductRepo& repo)
 {
+	using namespace Utilities;
+
+
 	// Product strings
 	const static std::string productCategoryStrings [static_cast<int>(ProductCatagory::CATEGORY_MAX)] = { "entry", "intermediate","advanced", "ultimate" };
 	std::cout << "Enter product id (int)" << std::endl;
@@ -88,20 +48,21 @@ int main()
 	// User input variable
 	int userInput; 
 	ProductRepo repository; // Product repo
+	OrderRepo orders;
 
 	do
 	{
-		Ultilities::DisplayMenu(); // Display the menu
+		Utilities::DisplayMenu(); // Display the menu
 		std::cin >> userInput; // get user input
 
 		// Decide what to do
 		switch (userInput)
 		{
 			case 1:
-				Ultilities::ListProducts(repository.Get()); // List all products
+				Utilities::ListProducts(repository.Get()); // List all products
 				break;
 			case 2:
-				//ListOrders(orders);
+				Utilities::ListOrders(orders.Get());
 				break;
 			case 3:
 				std::cout << "Not implemented\n";

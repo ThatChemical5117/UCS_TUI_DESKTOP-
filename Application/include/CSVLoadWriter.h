@@ -22,7 +22,7 @@ public:
 
 	// Constructor fills in file name and factory
 	CSVLoadWriter(const std::string& filename, 
-			TemplateFactory<T>* factory)
+			FactoryTemplate<T>* factory)
 		:  ReadWriteInterface<T>(factory), m_filename { filename }
 	{
 		// Check if the file is valid at construction
