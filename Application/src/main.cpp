@@ -1,30 +1,73 @@
 #include <iostream>
+#include <limits>
 
-#include <ProductRepo.h>
+// Required product repository
+#include <Repository/ProductRepo.h>
+#include <Factory/ProductFactory.h>
 #include <Utils.h>
 
+
+// Input methods
+template <typename T>
+T getInput() = delete;
+
+template <>
+int getInput()
+{
+	int userInt;
+	std::cin >> userInt;
+
+	while(!std::cin)
+	{
+		std::cout << "Invalid input\nPlease enter an integer value\n";
+		
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	return userInt;
+};
+
+template <>
+std::string getInput()
+{
+	std::string userInput;
+
+	getline(std::cin, userInput);
+
+	return userInput;
+};
+
+template<>
+ProductCatagory getInput()
+{
+	std::string userInput;
+	getline(std::cin, userInput);
+
+	return stringToProductCatagory(userInput);
+};
+
+
+// Temp function for testing
 void AddProduct(ProductRepo& repo)
 {
+	// Product strings
 	const static std::string productCategoryStrings [static_cast<int>(ProductCatagory::CATEGORY_MAX)] = { "entry", "intermediate","advanced", "ultimate" };
-
-	std::cout << "Enter an item then press enter" << std::endl;
-
-	Product product;
-
 	std::cout << "Enter product id (int)" << std::endl;
-	std::cin >> product.id;
+	int id = getInput<int>();
 
 	std::cout << "Enter product name (string)" << std::endl;
-	std::cin >> product.name;
+	std::string name = getInput<std::string>();
 
 	std::cout << "Enter product description (string - no spaces)" << std::endl;
-	std::cin >> product.description;
+	std::string desc = getInput<std::string>();
 
 	std::cout << "Enter product price (double)" << std::endl;
-	std::cin >> product.price;
+	std::string price = getInput<std::string>();
 
 	std::cout << "Enter product stock count (int)" << std::endl;
-	std::cin >> product.stockCount;
+	int count = getInput<int>();
 	
 	std::cout << "Enter product category (see existing)" << std::endl;
 	for (std::string str: productCategoryStrings)
@@ -32,38 +75,39 @@ void AddProduct(ProductRepo& repo)
 		std::cout << str << " ";
 	};
 	std::cout << std::endl;
-	std::string productCat;
-	std::cin >> productCat;
 
-	product.category = stringToProductCatagory(productCat);
+	ProductCatagory cat = getInput<ProductCatagory>();
 
-	repo.Add(std::move(product));
+	repo.Add(ProductFactory::GetInstance()->MakeItem(id, name, desc, price, count, cat));
 };
 
 
+// Main
 int main()
 {
-	int userInput;
-	ProductRepo repository;
+	// User input variable
+	int userInput; 
+	ProductRepo repository; // Product repo
 
 	do
 	{
-		Ultilities::DisplayMenu();
-		std::cin >> userInput;
+		Ultilities::DisplayMenu(); // Display the menu
+		std::cin >> userInput; // get user input
 
+		// Decide what to do
 		switch (userInput)
 		{
 			case 1:
-				Ultilities::ListProducts(repository.Get());
+				Ultilities::ListProducts(repository.Get()); // List all products
 				break;
 			case 2:
 				//ListOrders(orders);
 				break;
 			case 3:
-				AddProduct(repository);
+				std::cout << "Not implemented\n";
 				break;
 			case 4:
-				std::cout << "Not implemented\n";
+				AddProduct(repository); // Add product
 				break;
 		}
 

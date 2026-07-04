@@ -1,6 +1,7 @@
-#include "Utils.h"
+#include <Utils.h>
 
 
+// Display
 void Ultilities::DisplayMenu()
 {
 	std::cout << "----------------------" << std::endl;
@@ -12,6 +13,7 @@ void Ultilities::DisplayMenu()
 	std::cout << "----------------------" << std::endl;
 };
 
+// List products
 void Ultilities::ListProducts(const std::unordered_map<int, Product>& products)
 {
 	for (const auto& [key, product]: products)
@@ -20,6 +22,7 @@ void Ultilities::ListProducts(const std::unordered_map<int, Product>& products)
 	}
 };
 
+// List orders
 void Ultilities::ListOrders(const std::unordered_map<int, Order>& orders)
 {
 	for (const auto& [key, order]: orders)

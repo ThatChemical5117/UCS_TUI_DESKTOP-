@@ -1,17 +1,14 @@
 #pragma once
 #include <string>
-#include <vector>
-#include <optional>
-#include <utility>
 
-#include <Product.h>
-#include <RepositoryInterface.h>
+#include <Model/Product.h>
+#include <Interface/RepositoryInterface.h>
 
+// Concrete class product repository fills in implementation and types
+// for the Repository Interface and Read-Write interface
 class ProductRepo: public RepositoryInterface<Product>
 {
 private:
-	static std::optional<std::pair<int, Product>> lineParser(const std::vector<std::string>& line);
-	static std::string productParser(const Product& product);
 public:
 	// Default
 	ProductRepo();
@@ -19,13 +16,14 @@ public:
 	// Custom file path
 	ProductRepo(std::string str);
 
-	// Customer Read-Write interface
+	// Custom Read-Write interface
 	ProductRepo(ReadWriteInterface<Product>* interface);
 
-
+	// Override provided virtual functions
 	void Add(Product&& item) override final;
 	std::unordered_map<int, Product>& Get() override final;
 
+	// Destructors
 	~ProductRepo();
 };
 

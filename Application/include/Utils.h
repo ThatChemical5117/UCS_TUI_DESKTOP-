@@ -1,9 +1,10 @@
 #pragma once
 #include <unordered_map>
 
-#include <Product.h>
-#include <Order.h>
+#include <Model/Product.h>
+#include <Model/Order.h>
 
+// functions that don't belong to another class
 namespace Ultilities
 {
 	void DisplayMenu();
