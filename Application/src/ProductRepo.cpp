@@ -17,6 +17,7 @@ ProductRepo::ProductRepo(ReadWriteInterface<Product>* interface)
 	: RepositoryInterface { interface }
 {}
 
+/*
 // Add a product - Override from RepositoryInterface 
 void ProductRepo::Add(Product&& product)
 {
@@ -32,11 +33,21 @@ void ProductRepo::Add(Product&& product)
 	};
 };
 
+Product ProductRepo::Remove(int id)
+{
+	Product productToDelete = GetOne(id);
+	if (productToDelete.id != -1)
+		m_data.erase(id);
+
+	return productToDelete;
+};
+
 // return the underlying data structure
 std::unordered_map<int, Product>& ProductRepo::Get()
 {
 	return m_data;
 }
+*/
 
 // Delete the Read-Write interface
 ProductRepo::~ProductRepo()

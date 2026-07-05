@@ -19,8 +19,10 @@ public:
 	ProductRepo(ReadWriteInterface<Product>* interface);
 
 	// Override provided virtual functions
-	void Add(Product&& item) override final;
-	std::unordered_map<int, Product>& Get() override final;
+	//void Add(Product&& item) override final;
+	//Product GetOne(int id) override final;
+	//Product Remove(int id) override final;
+	//std::unordered_map<int, Product>& Get() override final;
 
 	// Destructors
 	~ProductRepo();

@@ -14,6 +14,7 @@ OrderRepo::OrderRepo(ReadWriteInterface<Order>* interface)
 	: RepositoryInterface { interface }
 {};
 
+/*
 void OrderRepo::Add(Order&& item) 
 {
 	try
@@ -25,10 +26,33 @@ void OrderRepo::Add(Order&& item)
 	};
 };
 
+Order OrderRepo::GetOne(int id)
+{
+	try{
+		Order order = m_data.at(id);
+		return order;
+	} catch (const std::out_of_range& e)
+	{
+		std::cout << "No Order with id: " << id << std::endl;
+		return {};
+	};
+};
+
+Order OrderRepo::Remove(int id)
+{
+	Order orderToDelete = GetOne(id);
+	if (orderToDelete.id != -1)
+		m_data.erase(id);
+
+	return orderToDelete;
+};
+
+
 std::unordered_map<int, Order>& OrderRepo::Get()
 {
 	return m_data;
 };
+*/
 
 OrderRepo::~OrderRepo()
 {

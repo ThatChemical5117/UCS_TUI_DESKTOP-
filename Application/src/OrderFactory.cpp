@@ -29,3 +29,9 @@ std::string OrderFactory::MakeString(const Order& order)
 	return stream.str();
 }
 
+
+Order OrderFactory::MakeItem(int id, int productId, int stock, std::string name, std::string email, std::string address, OrderStatus status)
+{
+	return { id, productId, stock, name, email, address, status };
+};
+

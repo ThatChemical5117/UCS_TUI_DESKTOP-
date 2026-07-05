@@ -11,9 +11,11 @@ void Utilities::DisplayMenu()
 	std::cout << "----------------------" << std::endl;
 	std::cout << "- 1) List Product - " << std::endl;
 	std::cout << "- 2) List Orders - " << std::endl;
-	std::cout << "- 3) Change Product values - " << std::endl;
-	std::cout << "- 4) Add new Product - " << std::endl;
-	std::cout << "- 5) Exit -" << std::endl;
+	std::cout << "- 3) Add new Product - " << std::endl;
+	std::cout << "- 4) Add new Order - " << std::endl;
+	std::cout << "- 5) Remove Product -" << std::endl;
+	std::cout << "- 6) Remove Order -" << std::endl;
+	std::cout << "- 7) Exit -" << std::endl;
 	std::cout << "----------------------" << std::endl;
 };
 

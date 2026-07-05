@@ -26,11 +26,43 @@ public:
 
 
 	// Interface member functions
-	virtual void Add(T&& item) = 0;
-	//virtual std::optional<T> GetOne(int id) = 0;
-	//virtual std::optional<T> Remove(int id) = 0;
+	virtual void Add(T&& item)
+	{
+		try {
+			m_data.at(item.id);
+		} catch (const std::out_of_range& e)
+		{
+			m_data.emplace(item.id, item);
+		};
+	};
+
+	virtual T GetOne(int id)
+	{
+		try {
+			T item = m_data.at(id);
+			return item;
+		} catch (const std::out_of_range& e)
+		{
+			std::cout << "No items with id: " << id << std::endl;
+			return {};
+		};
+	};
+
+	virtual T Remove(int id)
+	{
+		T item = GetOne(id);
+
+		if (item.id != -1)
+			m_data.erase(id);
+
+		return item;
+	};
+
 	//virtual std::optional<T> Update(int id, T&& item) = 0;
-	virtual std::unordered_map<int, T>& Get() = 0;
+	virtual std::unordered_map<int, T>& Get()
+	{
+		return m_data;
+	};
 
 	// Destroy the data source interface
 	virtual ~RepositoryInterface()

@@ -14,8 +14,10 @@ public:
 
 	OrderRepo(ReadWriteInterface<Order>* interface);
 
-	void Add(Order&& item) override final;
-	std::unordered_map<int, Order>& Get() override final;
+	//void Add(Order&& item) override final;
+	//Order GetOne(int id) override final;
+	//Order Remove(int id) override final;
+	//std::unordered_map<int, Order>& Get() override final;
 
 	~OrderRepo();
 };
