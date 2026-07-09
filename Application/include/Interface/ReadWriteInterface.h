@@ -8,7 +8,7 @@ template<typename T>
 class ReadWriteInterface
 {
 protected:
-	FactoryTemplate<T>* m_factory = nullptr;
+	FactoryTemplate<T>* m_factory; // Hold reference to singleton
 public:
 	ReadWriteInterface(FactoryTemplate<T>* factory) 
 		: m_factory { factory }
