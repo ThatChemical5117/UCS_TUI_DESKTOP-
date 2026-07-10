@@ -18,20 +18,17 @@ Order OrderFactory::MakeItem(const std::vector<std::string>& line)
 
 	int id = std::stoi(line.at(0));
 
-	return { id, std::stoi(line.at(1)), std::stoi(line.at(2)), line.at(3), line.at(4), line.at(5), stringToOrderStatus(line.at(6)) };
+	return { id, std::stoi(line.at(1)), std::stoi(line.at(2)), line.at(3), line.at(4), line.at(5), Order::StatusFromString(line.at(6)) };
 }
 
 std::string OrderFactory::MakeString(const Order& order)
 {
 	std::stringstream stream;
-	stream << order.id << "," << order.productId << "," << order.stockNumber << "," << order.name << "," << order.email << "," << order.address << "," << orderStatusToString(order.status);
+	stream << order.getId() << "," 
+		<< order.getProductId() << "," 
+		<< order.getStockNumber() << "," 
+		<< order.getName() << "," 
+		<< order.getEmail() << "," << order.getAddress() << "," << Order::StatusToString(order.getStatus());
 	
 	return stream.str();
 }
-
-
-Order OrderFactory::MakeItem(int id, int productId, int stock, std::string name, std::string email, std::string address, OrderStatus status)
-{
-	return { id, productId, stock, name, email, address, status };
-};
-

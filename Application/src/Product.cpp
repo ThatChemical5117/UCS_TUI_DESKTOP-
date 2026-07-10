@@ -1,45 +1,60 @@
 #include <Model/Product.h>
+#include <iostream>
 
 // string representation of product category
-const static std::string productCategoryStrings [static_cast<int>(ProductCatagory::CATEGORY_MAX)] = { "entry", "intermediate","advanced", "ultimate" };
+const std::string Product::categoryStrings[static_cast<int>(Product::Category::CATEGORY_MAX)] = { "entry", "intermediate","advanced", "ultimate" };
 
 // Product constructor
-Product::Product(int t_id, std::string t_name, std::string t_description, std::string t_price, int t_stockCount, ProductCatagory t_category)
-	: id { t_id }, name { t_name }, description { t_description }, price { t_price }, stockCount { t_stockCount }, category { t_category }
+Product::Product(int id, std::string name, std::string description, std::string price, int stockCount, Product::Category category)
+	: m_id { id }, m_name { name }, m_description { description }, m_price { price }, m_stockCount { stockCount }, m_category { category }
 {
 }
 
 // Product default constructor (Null - invalid object)
 Product::Product()
-	:id { -1 }, name {""}, description {""}, price {-1}, stockCount {-1}, category{ ProductCatagory::CATEGORY_MAX }
+	:m_id { -1 }, m_name {""}, m_description {""}, m_price {"0.00"}, m_stockCount {-1}, m_category{ Product::Category::CATEGORY_MAX }
 {};
 
-// Convert product category enum to string
-std::string_view ProductCatagoryToString(ProductCatagory cat)
+std::string_view Product::CategoryToString(Product::Category category)
 {
-	return productCategoryStrings[static_cast<int>(cat)];
+	return categoryStrings[static_cast<int>(category)];
 };
 
 // convert string to product category enum
-ProductCatagory stringToProductCatagory(std::string_view str)
+Product::Category Product::CategoryFromString(std::string str)
 {
-	for (unsigned int i = 0; i < static_cast<int>(ProductCatagory::CATEGORY_MAX); i++)
+	for (unsigned int i = 0; i < static_cast<int>(Category::CATEGORY_MAX); i++)
 	{
-		if (str.compare(productCategoryStrings[i]) == 0)
-			return static_cast<ProductCatagory>(i);
+		if (str.compare(categoryStrings[i]) == 0)
+			return static_cast<Category>(i);
 	}
 
-	return ProductCatagory::CATEGORY_MAX; // return this as the error value
+	return Product::Category::CATEGORY_MAX; // return this as the error value
 }
+
+
+// Mutators 
+int Product::getId() const { return m_id; };		
+std::string Product::getName() const { return m_name; };
+std::string Product::getDescription() const { return m_description; };
+std::string Product::getPrice() const { return m_price; };
+int Product::getStockCount() const { return m_stockCount; }
+Product::Category Product::getCategory() const { return m_category; };
+
+void Product::setId(int id) { m_id = id;};
+void Product::setName(std::string name) { m_name = name; };
+void Product::setDescription(std::string description) { m_description = description; };
+void Product::setPrice(std::string price) { m_price = price; };
+void Product::setStockCount(Category category) { m_category = category; };
 
 // Print a product
 std::ostream& operator<<(std::ostream& stream, const Product& product)
 {
-	stream << product.id << "\n";
-	stream << product.name << "\n\t";
-	stream << product.description << "\n\t";
-	stream << ProductCatagoryToString(product.category) << " level\n\t";
-	stream << product.price;
+	stream << product.getId() << "\n";
+	stream << product.getName() << "\n\t";
+	stream << product.getPrice() << "\n\t";
+	stream << product.getDescription() << "\n\t";
+	stream << Product::CategoryToString(product.getCategory()) << " level\n\t";
 
 	return stream;
 }

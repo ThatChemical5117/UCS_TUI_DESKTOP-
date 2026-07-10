@@ -3,35 +3,49 @@
 #include <string>
 #include <iostream>
 
-// Product category enum -- can only be in these categories
-enum ProductCatagory
+class Product
 {
-	ENTRY,
-	INTERMEDIATE,
-	ADVANCED,
-	ULTIMATE,
-	CATEGORY_MAX
-};
+public:
+	enum class Category
+	{
+		ENTRY,
+		INTERMEDIATE,
+		ADVANCED,
+		ULTIMATE,
+		CATEGORY_MAX
+	};
 
-// go from a Product Category enum to string and back
-std::string_view ProductCatagoryToString(ProductCatagory cat);
-ProductCatagory stringToProductCatagory(std::string_view str);
+	const static std::string categoryStrings [static_cast<int>(Product::Category::CATEGORY_MAX)];
+	static std::string_view CategoryToString(Product::Category category);
+	static Product::Category CategoryFromString(std::string str);
 
 
-// Product definition
-struct Product
-{
-	int id;
-	std::string name;
-	std::string description;
-	std::string price;
-	int stockCount;
-	ProductCatagory category;
-
-	// Default and explicit constructor
-	Product(int t_id, std::string t_name, std::string t_description, std::string t_price, int t_stockCount, ProductCatagory t_category);
+	Product(int, std::string, std::string, std::string, int, Category);
 	Product();
+	
+	// Mutators
+	int getId() const;		
+	std::string getName() const;
+	std::string getDescription() const;
+	std::string getPrice() const;
+	int getStockCount() const;
+	Category getCategory() const;
+
+	void setId(int id);
+	void setName(std::string name);
+	void setDescription(std::string description);
+	void setPrice(std::string price);
+	void setStockCount(Category category);
+
+private:
+	int m_id;
+	std::string m_name;
+	std::string m_description;
+	std::string m_price;
+	int m_stockCount;
+	Category m_category;
 };
 
-// for printing
+// Friend print function
 std::ostream& operator<<(std::ostream& stream, const Product& product);
+

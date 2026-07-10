@@ -61,9 +61,9 @@ public:
 			T result = ReadWriteInterface<T>::m_factory->MakeItem(arguments);
 			
 			// put the value into the storage
-			if (result.id != -1)
+			if (result.getId() != -1)
 			{
-				storage.emplace(result.id, result); // use emplace 
+				storage.emplace(result.getId(), result); // use emplace 
 			}
 		}
 

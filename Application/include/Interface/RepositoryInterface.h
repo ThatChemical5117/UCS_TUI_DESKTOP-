@@ -21,7 +21,7 @@ public:
 		if (interface != nullptr)
 			m_data = interface->Read();
 		else 
-			std::cout << "WARNING >> no valid Read-Write or Template Factory Interface available" << std::endl;
+			std::cout << "WARNING >> no valid Read-Write Interface available" << std::endl;
 	};
 
 
@@ -29,10 +29,10 @@ public:
 	virtual void Add(T&& item)
 	{
 		try {
-			m_data.at(item.id);
+			m_data.at(item.getId());
 		} catch (const std::out_of_range& e)
 		{
-			m_data.emplace(item.id, item);
+			m_data.emplace(item.getId(), item);
 		};
 	};
 
@@ -52,7 +52,7 @@ public:
 	{
 		T item = GetOne(id);
 
-		if (item.id != -1)
+		if (item.getId() != -1)
 			m_data.erase(id);
 
 		return item;
