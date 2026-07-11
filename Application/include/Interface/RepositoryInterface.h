@@ -79,6 +79,7 @@ public:
 	virtual ~RepositoryInterface()
 	{
 		// Free the pointer
+		m_dataSourceInterface->Write();
 		delete m_dataSourceInterface;
 	}
 };
