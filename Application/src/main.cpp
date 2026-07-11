@@ -1,12 +1,13 @@
 #include <iostream>
 
+#include <Interface/Application.h>
+
 // Required product repository
 #include <Interface/RepositoryInterface.h>
 #include <CSVLoadWriter.h>
 #include <Factory/ProductFactory.h>
 #include <Factory/OrderFactory.h>
 #include <Utils.h>
-
 
 // Main
 int main()
