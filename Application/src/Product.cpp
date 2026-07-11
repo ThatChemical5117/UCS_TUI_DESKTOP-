@@ -45,7 +45,21 @@ void Product::setId(int id) { m_id = id;};
 void Product::setName(std::string name) { m_name = name; };
 void Product::setDescription(std::string description) { m_description = description; };
 void Product::setPrice(std::string price) { m_price = price; };
-void Product::setStockCount(Category category) { m_category = category; };
+void Product::setStockCount(int stock) { m_stockCount = stock; };
+void Product::setCategory(Category category) { m_category = category; };
+
+bool operator==(const Product& productA, const Product& productB)
+{
+	return (
+	productA.m_id == productB.m_id &&
+	productA.m_name.compare(productB.m_name) == 0 &&
+	productA.m_description.compare(productB.m_description) == 0 &&
+	productA.m_price.compare(productB.m_price) == 0 &&
+	productA.m_stockCount == productB.m_stockCount &&
+	productA.m_category == productB.m_category
+	);
+};
+
 
 // Print a product
 std::ostream& operator<<(std::ostream& stream, const Product& product)

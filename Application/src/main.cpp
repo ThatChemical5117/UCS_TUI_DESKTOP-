@@ -1,19 +1,23 @@
 #include <iostream>
 
 // Required product repository
-#include <Repository/ProductRepo.h>
-#include <Repository/OrderRepo.h>
+#include <Interface/RepositoryInterface.h>
+#include <CSVLoadWriter.h>
 #include <Factory/ProductFactory.h>
 #include <Factory/OrderFactory.h>
 #include <Utils.h>
+
 
 // Main
 int main()
 {
 	// User input variable
 	int userInput; 
-	ProductRepo productRepository; // Product repo
-	OrderRepo orderRepository;
+	CSVLoadWriter<Product>* writer= new CSVLoadWriter<Product>{ "Products.csv", ProductFactory::GetInstance() };
+	RepositoryInterface<Product> productRepository = { writer };
+
+	CSVLoadWriter<Order>* owriter = new CSVLoadWriter<Order> { "Orders.csv", OrderFactory::GetInstance() };
+	RepositoryInterface<Order> orderRepository { owriter };
 
 	do
 	{
@@ -50,4 +54,8 @@ int main()
 		}
 
 	} while (userInput != 9);
+
+	writer->Write(productRepository.Get());
+	owriter->Write(orderRepository.Get());
 }
+

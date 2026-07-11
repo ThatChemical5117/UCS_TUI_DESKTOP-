@@ -35,7 +35,11 @@ public:
 	void setName(std::string name);
 	void setDescription(std::string description);
 	void setPrice(std::string price);
-	void setStockCount(Category category);
+	void setStockCount(int stock);
+	void setCategory(Category category);
+
+	friend bool operator==(const Product& productA, const Product& productB);
+	friend std::ostream& operator<<(std::ostream& stream, const Product& product);
 
 private:
 	int m_id;
@@ -47,5 +51,5 @@ private:
 };
 
 // Friend print function
-std::ostream& operator<<(std::ostream& stream, const Product& product);
+//std::ostream& operator<<(std::ostream& stream, const Product& product);
 

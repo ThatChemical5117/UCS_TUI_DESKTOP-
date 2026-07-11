@@ -60,6 +60,20 @@ void Order::setEmail(std::string email) { m_email = email; }
 void Order::setAddress(std::string address) { m_address = address; }
 void Order::setStatus(Status status) { m_status = status; }
 
+
+bool operator==(const Order& orderA, const Order& orderB)
+{
+	return (
+	orderA.m_id == orderB.m_id &&
+	orderA.m_productId == orderB.m_productId &&
+	orderA.m_stockNumber == orderB.m_stockNumber &&
+	orderA.m_name.compare(orderB.m_name) == 0 &&
+	orderA.m_email.compare(orderB.m_email) == 0 &&
+	orderA.m_address.compare(orderB.m_address) == 0 &&
+	orderA.m_status == orderB.m_status
+	);
+};
+
 // Print an order
 std::ostream& operator<<(std::ostream& stream, const Order& order)
 {

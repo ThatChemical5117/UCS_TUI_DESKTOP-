@@ -40,6 +40,9 @@ public:
 	void setAddress(std::string address);
 	void setStatus(Status status);
 
+	friend std::ostream& operator<<(std::ostream& stream, const Order& order);
+	friend bool operator==(const Order& order, const Order& order2);
+
 private:
 	int m_id;
 	int m_productId;
@@ -56,4 +59,3 @@ private:
 
 
 // overload << to print
-std::ostream& operator<<(std::ostream& stream, const Order& order);

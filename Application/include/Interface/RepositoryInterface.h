@@ -26,7 +26,7 @@ public:
 
 
 	// Interface member functions
-	virtual void Add(T&& item)
+	virtual void Add(T&& item) // Allows for child classes to override if necessary
 	{
 		try {
 			m_data.at(item.getId());
@@ -58,11 +58,22 @@ public:
 		return item;
 	};
 
-	//virtual std::optional<T> Update(int id, T&& item) = 0;
 	virtual std::unordered_map<int, T>& Get()
 	{
 		return m_data;
 	};
+
+
+	// Pure virtual function
+	virtual T Update(T&& item)
+	{
+		T existingItem = GetOne(item.getId());
+		if (existingItem.getId() == -1 || existingItem == item)
+			return {};
+
+		m_data.at(item.getId()) = item;
+		return existingItem;
+	}
 
 	// Destroy the data source interface
 	virtual ~RepositoryInterface()
