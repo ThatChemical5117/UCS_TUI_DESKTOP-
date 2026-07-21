@@ -1,13 +1,16 @@
 #include <Impl/TerminalApplication.h>
-#include <CSVLoadWriter.h>
+#include <Impl/CSVLoadWriter.h>
 #include <Factory/ProductFactory.h>
 #include <Factory/OrderFactory.h>
 #include <Utils.h>
 
 TerminalApplication::TerminalApplication()
-	:m_productRepo { new CSVLoadWriter<Product>("Products.csv", ProductFactory::GetInstance()) },
-	 m_orderRepo { new CSVLoadWriter<Order>("Orders.csv", OrderFactory::GetInstance()) }
 {
+	m_productReadWriter = new CSVLoadWriter<Product> { "Products.csv", ProductFactory::GetInstance() };
+	m_orderReadWriter = new CSVLoadWriter<Order> { "Orders.csv", OrderFactory::GetInstance() };
+
+	m_productRepo = { m_productReadWriter };
+	m_orderRepo = { m_orderReadWriter };
 }
 
 void TerminalApplication::Start()
@@ -51,4 +54,10 @@ void TerminalApplication::Start()
 
 
 TerminalApplication::~TerminalApplication()
-{};
+{
+	m_orderReadWriter->Write(m_orderRepo.Get());
+	m_productReadWriter->Write(m_productRepo.Get());
+
+	delete m_orderReadWriter;
+	delete m_productReadWriter;
+};

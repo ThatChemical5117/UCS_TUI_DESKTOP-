@@ -32,8 +32,6 @@ public:
 			isValid = true;
 	};
 
-	CSVLoadWriter() {};
-
 	// Overloaded Read - takes in data from a CSV
 	std::unordered_map<int, T> Read() override final
 	{
@@ -98,17 +96,4 @@ public:
 			outputFile << ReadWriteInterface<T>::m_factory->MakeString(item) << "\n";// place line into output
 		};
 	};
-
-
-	void setSrc(std::string str) override final
-	{
-		m_filename = str;
-		isValid = validateFile(m_filename);
-	};
-
-	void setFactory(FactoryTemplate<T>* factory) override final
-	{
-		ReadWriteInterface<T>::m_factory = factory;
-	};
-
 };

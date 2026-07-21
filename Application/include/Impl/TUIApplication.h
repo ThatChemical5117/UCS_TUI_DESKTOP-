@@ -1,24 +1,23 @@
 #pragma once
 
-#include "Interface/ReadWriteInterface.h"
 #include <Model/Product.h>
 #include <Model/Order.h>
 
 #include <Interface/Application.h>
 #include <Interface/RepositoryInterface.h>
 
-class TerminalApplication: public Application
+class TUIApplication: public Application
 {
 public:
-	TerminalApplication();	
+	// Constructor
+	TUIApplication();
 
+	// Start main application loop
 	void Start() override final;
 
-	~TerminalApplication();
-public:
+	// Destructor
+	~TUIApplication();
+private:
 	RepositoryInterface<Product> m_productRepo;
 	RepositoryInterface<Order> m_orderRepo;
-
-	ReadWriteInterface<Product>* m_productReadWriter = nullptr;
-	ReadWriteInterface<Order>* m_orderReadWriter = nullptr;
 };

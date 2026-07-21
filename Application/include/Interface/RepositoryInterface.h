@@ -10,13 +10,11 @@ template <typename T>
 class RepositoryInterface
 {
 protected:
-	ReadWriteInterface<T>* m_dataSourceInterface = nullptr; 
 	std::unordered_map<int, T> m_data;
 public:
 	// Constructor - The desired interface is provided by the caller
 	// the pointer is managed by the Repository Interface 
 	RepositoryInterface(ReadWriteInterface<T>* interface)
-		:m_dataSourceInterface { interface }
 	{
 		if (interface != nullptr)
 			m_data = interface->Read();
@@ -24,6 +22,7 @@ public:
 			std::cout << "WARNING >> no valid Read-Write Interface available" << std::endl;
 	};
 
+	RepositoryInterface() = default;
 
 	// Interface member functions
 	virtual void Add(T&& item) // Allows for child classes to override if necessary
@@ -76,10 +75,5 @@ public:
 	}
 
 	// Destroy the data source interface
-	virtual ~RepositoryInterface()
-	{
-		// Free the pointer
-		m_dataSourceInterface->Write();
-		delete m_dataSourceInterface;
-	}
+	virtual ~RepositoryInterface() = default;
 };

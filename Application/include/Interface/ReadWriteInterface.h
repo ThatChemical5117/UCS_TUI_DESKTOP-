@@ -10,10 +10,6 @@ class ReadWriteInterface
 protected:
 	FactoryTemplate<T>* m_factory; // Hold reference to singleton
 public:
-	ReadWriteInterface()
-		: ReadWriteInterface { nullptr }
-	{};
-
 	ReadWriteInterface(FactoryTemplate<T>* factory) 
 		: m_factory { factory }
 	{};
@@ -21,10 +17,6 @@ public:
 	// Functions must be defined by the user
 	virtual std::unordered_map<int, T> Read() = 0;
 	virtual void Write(std::unordered_map<int, T>& input) = 0;
-
-	// Helper functions - must be implemented by the user
-	virtual void setSrc(std::string) = 0;
-	virtual void setFactory(FactoryTemplate<T>* factory) = 0;
 
 	virtual ~ReadWriteInterface() = default;
 };
